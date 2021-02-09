@@ -8,6 +8,7 @@ import http = require('http');
 
 import app from '../app';
 import {HttpError} from "http-errors";
+import {Socket} from "socket.io";
 
 debug('wsocket-chat:server')
 
@@ -23,6 +24,19 @@ app.set('port', port);
  */
 
 const server = http.createServer(app);
+
+/**
+ * Create Socket.Io instance and listen.
+ */
+
+const io = require('socket.io')(server);
+
+io.on('connection', (socket: Socket) => {
+  console.log('A user has connected');
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  })
+})
 
 /**
  * Listen on provided port, on all network interfaces.
