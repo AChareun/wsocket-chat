@@ -31,9 +31,14 @@ const server = http.createServer(app);
 
 const io = require('socket.io')(server);
 
-io.on('connection', (socket: Socket) => {
+io.on('connection', (socket: Socket): void => {
   console.log('A user has connected');
-  socket.on('disconnect', () => {
+
+  socket.on('chat message', (msg: string): void => {
+    io.emit('chat message', msg);
+  })
+
+  socket.on('disconnect', (): void => {
     console.log('User disconnected');
   })
 })
@@ -70,7 +75,7 @@ function normalizePort(val: string): number | string | false {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error: HttpError) {
+function onError(error: HttpError): void {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -98,7 +103,7 @@ function onError(error: HttpError) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+function onListening(): void {
   const addr = server.address();
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
