@@ -1,8 +1,9 @@
 import {Application, Request, Response} from "express";
+import * as path from "path";
 
 export class DefaultController {
     private BASE_ROUTE = '/';
-    private VIEWS_DIR = 'default/views';
+    private VIEWS_DIR = '../default/views';
 
     configureRoutes(app: Application) {
         const ROUTE = this.BASE_ROUTE;
@@ -11,6 +12,6 @@ export class DefaultController {
     }
 
     async index(req: Request, res: Response) {
-        res.render('index', { title: 'Chat-App' });
+        res.render(path.join(this.VIEWS_DIR, 'index'), { title: 'Chat-App' });
     }
 }

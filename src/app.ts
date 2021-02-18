@@ -13,7 +13,7 @@ import { defaultModuleInit } from './module/default/module';
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, './module/views'));
+app.set('views', path.join('src', 'module', 'views'));
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
