@@ -17,6 +17,7 @@
     "express": "~4.16.1",
     "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
+    "merge": "^2.1.0",
     "mongodb": "^3.6.4",
     "mongodb-memory-server": "^6.9.3",
     "mongoose": "^5.11.15",
@@ -27,6 +28,7 @@
     "typescript": "^4.1.3"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/cookie-parser": "^1.4.2",
     "@types/debug": "^4.1.5",
     "@types/http-errors": "^1.8.0",

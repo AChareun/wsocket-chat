@@ -111,3 +111,6 @@ dist
 
 # WebStorm
 .idea
+
+# MongoDB Memory config
+globalConfig.json
