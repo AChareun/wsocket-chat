@@ -2,9 +2,9 @@ import {connect, Error as MongoError} from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
 import UserModel from '../userModel';
-import {IUserCreationAttributes} from "../../../../interface";
+import {IUserModelCreationAttributes} from "../../../../interface";
 
-const userData: IUserCreationAttributes = {password: "asdfgh322", username: "JohnDoe"};
+const userData: IUserModelCreationAttributes = {password: "asdfgh322", username: "JohnDoe"};
 
 describe('User Model Test', () => {
 
