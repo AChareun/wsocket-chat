@@ -2,6 +2,7 @@ import {IUser, IUserModel, IUserModelCreationAttributes} from "../../../../inter
 import {AbstractUserRepository} from "../abstractUserRepository";
 import UserModel from '../../model/userModel';
 import {User} from "../../entity/user";
+import {fromModelToEntity} from "../../mapper/userMapper";
 
 export class UserRepository extends AbstractUserRepository {
     private readonly userModel: typeof UserModel;
@@ -12,13 +13,13 @@ export class UserRepository extends AbstractUserRepository {
     }
 
     async addUser(attributes: IUserModelCreationAttributes): Promise<IUser> {
-        const newUser = new this.userModel();
+        const newUser = new this.userModel(attributes);
         try {
             await newUser.save()
         } catch (e) {
             console.log(e);
         }
-        return new User(newUser);
+        return fromModelToEntity(newUser);
     }
 
     async deleteUser(id: number): Promise<boolean> {
@@ -36,7 +37,7 @@ export class UserRepository extends AbstractUserRepository {
         try {
             requestedUser = await this.userModel.findById(id);
             if (requestedUser) {
-                return new User(requestedUser);
+                return fromModelToEntity(requestedUser);
             }
         } catch (e) {
             console.log(e);
@@ -48,7 +49,7 @@ export class UserRepository extends AbstractUserRepository {
         try {
             requestedUser = await this.userModel.findByIdAndUpdate(id, attributes)
             if (requestedUser) {
-                return new User(requestedUser);
+                return fromModelToEntity(requestedUser);
             }
         } catch (e) {
             console.log(e);
