@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+require('dotenv').config();
 import debug = require('debug');
 import http = require('http');
 

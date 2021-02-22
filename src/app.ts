@@ -9,6 +9,8 @@ import {NextFunction, Request, Response} from "express";
 
 import { configureDI } from './config/di';
 import { defaultModuleInit } from './module/default/module';
+import { userModuleInit } from "./module/user/module";
+import { configureMongoConnection } from "./config/db";
 
 const app = express();
 
@@ -28,8 +30,11 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+configureMongoConnection(process.env.DB_PATH || '');
+
 const diContainer = configureDI();
 defaultModuleInit(app, diContainer);
+userModuleInit(app, diContainer);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
