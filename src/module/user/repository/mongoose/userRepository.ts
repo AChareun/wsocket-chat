@@ -1,7 +1,6 @@
 import {IUser, IUserModel, IUserModelCreationAttributes} from "../../../../interface";
 import {AbstractUserRepository} from "../abstractUserRepository";
 import UserModel from '../../model/userModel';
-import {User} from "../../entity/user";
 import {fromModelToEntity} from "../../mapper/userMapper";
 
 export class UserRepository extends AbstractUserRepository {
@@ -22,7 +21,7 @@ export class UserRepository extends AbstractUserRepository {
         return fromModelToEntity(newUser);
     }
 
-    async deleteUser(id: number): Promise<boolean> {
+    async deleteUser(id: string): Promise<boolean> {
         try {
             await this.userModel.deleteOne({ _id: id });
             return true
@@ -32,7 +31,7 @@ export class UserRepository extends AbstractUserRepository {
         }
     }
 
-    async getUserById(id: number): Promise<IUser | undefined> {
+    async getUserById(id: string): Promise<IUser | undefined> {
         let requestedUser: IUserModel | null;
         try {
             requestedUser = await this.userModel.findById(id);
@@ -44,7 +43,7 @@ export class UserRepository extends AbstractUserRepository {
         }
     }
 
-    async updateUser(id: number, attributes: IUserModelCreationAttributes): Promise<IUser | undefined> {
+    async updateUser(id: string, attributes: IUserModelCreationAttributes): Promise<IUser | undefined> {
         let requestedUser: IUserModel | null;
         try {
             requestedUser = await this.userModel.findByIdAndUpdate(id, attributes)

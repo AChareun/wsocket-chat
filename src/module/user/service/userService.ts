@@ -12,15 +12,15 @@ export class UserService {
         return this.userRepository.addUser(attributes);
     }
 
-    async getById(id: number): Promise<IUser | undefined> {
+    async getById(id: string): Promise<IUser | undefined> {
         return this.userRepository.getUserById(id);
     }
 
-    async updateUser(id: number, attributes: IUserCreationAttributes): Promise<IUser | undefined> {
+    async updateUser(id: string, attributes: IUserCreationAttributes): Promise<IUser | undefined> {
         return this.userRepository.updateUser(id, attributes);
     }
 
-    async deleteUser(id: number): Promise<boolean> {
+    async deleteUser(id: string): Promise<boolean> {
         return this.userRepository.deleteUser(id);
     }
 }

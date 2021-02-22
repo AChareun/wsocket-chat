@@ -4,9 +4,9 @@ export abstract class AbstractUserRepository {
 
     abstract addUser(attributes: IUserModelCreationAttributes): Promise<IUser>;
 
-    abstract getUserById(id: number): Promise<IUser | undefined>;
+    abstract getUserById(id: string): Promise<IUser | undefined>;
 
-    abstract updateUser(id: number, attributes: IUserModelCreationAttributes): Promise<IUser | undefined>;
+    abstract updateUser(id: string, attributes: IUserModelCreationAttributes): Promise<IUser | undefined>;
 
-    abstract deleteUser(id: number): Promise<boolean>;
+    abstract deleteUser(id: string): Promise<boolean>;
 }

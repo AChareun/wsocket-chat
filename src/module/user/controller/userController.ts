@@ -34,9 +34,9 @@ export class UserController {
     async getById(req: Request, res: Response): Promise<void> {
         const userId = req.params.id;
         let requestedUser: IUser | undefined;
-        if (userId && !isNaN(parseInt(userId))) {
+        if (userId) {
             try {
-                requestedUser = await this.userService.getById(parseInt(userId));
+                requestedUser = await this.userService.getById(userId);
                 res.status(200).json(requestedUser);
             } catch (e) {
                 res.status(400).json(e);
@@ -50,9 +50,9 @@ export class UserController {
         const userId = req.params.id;
         const userData = req.body;
         let updatedUser: IUser | undefined;
-        if (userData && userId && !isNaN(parseInt(userId))) {
+        if (userData) {
             try {
-                updatedUser = await this.userService.updateUser(parseInt(userId), userData);
+                updatedUser = await this.userService.updateUser(userId, userData);
                 res.status(200).json(updatedUser);
             } catch (e) {
                 res.status(400).json(e);
@@ -64,9 +64,9 @@ export class UserController {
 
     async deleteUser(req: Request, res: Response): Promise<void> {
         const userId = req.params.id;
-        if (!isNaN(parseInt(userId))) {
+        if (userId) {
             try {
-                const isSuccess = await this.userService.deleteUser(parseInt(userId));
+                const isSuccess = await this.userService.deleteUser(userId);
                 res.status(isSuccess ? 200 : 400).json(isSuccess);
             } catch (e) {
                 res.status(400).json(e);
