@@ -1,3 +1,5 @@
+import * as path from "path";
+
 import { Application, Request, Response } from 'express';
 import { UserService } from '../service/userService';
 import { IUser } from '../../../interface';
@@ -6,9 +8,11 @@ export class UserController {
     private BASE_ROUTE = '/user';
     private VIEWS_DIR = '../user/views';
     private userService: UserService;
+    private authMiddleware: any;
 
-    constructor(userService: UserService) {
+    constructor(userService: UserService, authMiddleware: any) {
         this.userService = userService;
+        this.authMiddleware = authMiddleware;
     }
 
     configureRoutes(app: Application) {

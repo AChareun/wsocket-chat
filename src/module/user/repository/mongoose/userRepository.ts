@@ -11,6 +11,18 @@ export class UserRepository extends AbstractUserRepository {
         this.userModel = userModel;
     }
 
+    async getUserByCredentials(username: string, password: string): Promise<IUser | undefined> {
+        let requestedUser: IUserModel | null;
+        try {
+            requestedUser = await this.userModel.findOne({username, password});
+            if (requestedUser) {
+                return fromModelToEntity(requestedUser);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async addUser(attributes: IUserModelCreationAttributes): Promise<IUser> {
         const newUser = new this.userModel(attributes);
         try {
