@@ -8,10 +8,8 @@ export class UserService {
         this.userRepository = userRepository;
     }
 
-    async validateUser(username: string, password: string): Promise<IUser | undefined> {
-        const requestedUser = await this.userRepository.getUserByCredentials(username, password);
-
-        return requestedUser;
+    async getByCredentials(username: string, password: string): Promise<IUser | undefined> {
+        return await this.userRepository.getUserByCredentials(username, password);
     }
 
     async addUser(attributes: IUserCreationAttributes): Promise<IUser> {

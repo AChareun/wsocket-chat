@@ -14,7 +14,7 @@ export class UserRepository extends AbstractUserRepository {
     async getUserByCredentials(username: string, password: string): Promise<IUser | undefined> {
         let requestedUser: IUserModel | null;
         try {
-            requestedUser = await this.userModel.findOne({username, password});
+            requestedUser = await this.userModel.findOne({username, password}).exec();
             if (requestedUser) {
                 return fromModelToEntity(requestedUser);
             }
@@ -35,7 +35,7 @@ export class UserRepository extends AbstractUserRepository {
 
     async deleteUser(id: string): Promise<boolean> {
         try {
-            await this.userModel.deleteOne({ _id: id });
+            await this.userModel.deleteOne({ _id: id }).exec();
             return true
         } catch (e) {
             console.log(e);
@@ -46,7 +46,7 @@ export class UserRepository extends AbstractUserRepository {
     async getUserById(id: string): Promise<IUser | undefined> {
         let requestedUser: IUserModel | null;
         try {
-            requestedUser = await this.userModel.findById(id);
+            requestedUser = await this.userModel.findById(id).exec();
             if (requestedUser) {
                 return fromModelToEntity(requestedUser);
             }
@@ -58,7 +58,7 @@ export class UserRepository extends AbstractUserRepository {
     async updateUser(id: string, attributes: IUserModelCreationAttributes): Promise<IUser | undefined> {
         let requestedUser: IUserModel | null;
         try {
-            requestedUser = await this.userModel.findByIdAndUpdate(id, attributes)
+            requestedUser = await this.userModel.findByIdAndUpdate(id, attributes).exec();
             if (requestedUser) {
                 return fromModelToEntity(requestedUser);
             }
