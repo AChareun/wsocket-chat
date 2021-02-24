@@ -3,13 +3,15 @@ import * as passport from 'passport';
 
 import { DefaultController } from '../module/default/module';
 import { UserController, UserModel, UserService, UserRepository } from '../module/user/module';
-import { configurePassportStrategy } from './passport';
+import { configurePassportStrategy, getSerializeLogic, getDeserializeLogic } from './passport';
 
 function configurePassport(container: DIContainer) {
     const userService = container.get<UserService>('UserService');
     const localStrategy: passport.Strategy = configurePassportStrategy(userService);
 
     passport.use(localStrategy);
+    passport.serializeUser(getSerializeLogic());
+    passport.deserializeUser(getDeserializeLogic(userService));
     return passport;
 }
 
