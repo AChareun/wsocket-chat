@@ -7,7 +7,6 @@ export function configurePassportStrategy(userService: UserService) {
     return new LocalStrategy(async function (username: string, password: string, done: any) {
         try {
             const user = await userService.getByCredentials(username, password);
-            console.log(user);
 
             if (!user) {
                 return done(null, false);

@@ -34,7 +34,7 @@ export class DefaultController {
 
     async index(req: Request, res: Response) {
         if (req.user) {
-            res.render(path.join(this.VIEWS_DIR, 'index'));
+            res.render(path.join(this.VIEWS_DIR, 'index'), { user: req.user });
         } else {
             res.redirect(`${this.BASE_ROUTE}login`);
         }
