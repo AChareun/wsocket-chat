@@ -1,11 +1,11 @@
-<form id="form" action="/signup" method="post">
-    <div class="form-control">
-        <label for="username">Username: </label>
-        <input name="username" id="input" autocomplete="off" />
+<form method="post" action="/signup" class="col-sm-4">
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username">
     </div>
-    <div class="form-control">
-        <label for="password">Password: </label>
-        <input name="password" id="input" autocomplete="off" />
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password">
     </div>
-    <button type="submit">Send</button>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
 </form>

@@ -1,7 +1,10 @@
-<ul id="messages"></ul>
-<form id="form" action="">
-    <input id="input" autocomplete="off" /><button>Send</button>
-</form>
+<div class="container vh-100">
+    <ul id="messages" class="list-group d-flex flex-column justify-content-start h-75 overflow-auto"></ul>
+    <form id="form" action="" class="d-flex mb-3 mx-1 h-auto">
+        <input id="input" autocomplete="off" class="form-control"/>
+        <button class="btn btn-primary">Send</button>
+    </form>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -21,8 +24,9 @@
 
     socket.on('chat message', function(msg) {
         const $msg = document.createElement('li');
-        $msg.textContent = msg;
+        $msg.textContent = `{{user.username}}: ${msg}`;
+        $msg.className = 'list-group-item'
         messages.appendChild($msg);
-        window.scrollTo(0, document.body.scrollHeight);
+        messages.scrollTo(0, messages.scrollHeight);
     });
 </script>
