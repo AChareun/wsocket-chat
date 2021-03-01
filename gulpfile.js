@@ -3,7 +3,7 @@ const clean = require('gulp-clean');
 const ts = require('gulp-typescript');
 
 function cleanDist() {
-    return src(['./dist'], { read: false })
+    return src(['./dist'], { read: false, allowEmpty: true })
         .pipe(clean())
 }
 
