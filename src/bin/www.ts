@@ -5,11 +5,11 @@
  */
 require('dotenv').config();
 import debug = require('debug');
-import http = require('http');
+import { createServer } from "http";
+import {HttpError} from "http-errors";
+import {Socket, Server} from "socket.io";
 
 import app from '../app';
-import {HttpError} from "http-errors";
-import {Socket} from "socket.io";
 
 debug('wsocket-chat:server')
 
@@ -24,13 +24,13 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+const httpServer = createServer(app);
 
 /**
  * Create Socket.Io instance and listen.
  */
 
-const io = require('socket.io')(server);
+const io = new Server(httpServer);
 
 io.on('connection', (socket: Socket): void => {
   console.log('A user has connected');
@@ -48,9 +48,9 @@ io.on('connection', (socket: Socket): void => {
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+httpServer.listen(port);
+httpServer.on('error', onError);
+httpServer.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -105,7 +105,7 @@ function onError(error: HttpError): void {
  */
 
 function onListening(): void {
-  const addr = server.address();
+  const addr = httpServer.address();
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr?.port;
