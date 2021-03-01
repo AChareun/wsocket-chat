@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import {WebSocketServerWrapper} from "../module/webSocket/webSocketServerWrapper";
+
 /**
  * Module dependencies.
  */
@@ -32,17 +34,9 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer);
 
-io.on('connection', (socket: Socket): void => {
-  console.log('A user has connected');
-
-  socket.on('chat message', (msg: string): void => {
-    io.emit('chat message', msg);
-  })
-
-  socket.on('disconnect', (): void => {
-    console.log('User disconnected');
-  })
-})
+const webSocketWrapper = new WebSocketServerWrapper(io);
+webSocketWrapper.addNameSpace('/');
+webSocketWrapper.initNamespaces();
 
 /**
  * Listen on provided port, on all network interfaces.
